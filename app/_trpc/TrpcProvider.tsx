@@ -9,7 +9,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     // if that doesn't work pass whole url
-    trpc.createClient({ links: [httpBatchLink({ url: "/api/trpc" })] })
+    trpc.createClient({ links: [httpBatchLink({ url: "/api/trpc" })] }),
   );
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>

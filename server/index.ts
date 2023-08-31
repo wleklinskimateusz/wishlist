@@ -1,8 +1,9 @@
+import { prisma } from "@/app/_prisma";
 import { publicProcedure, router } from "./trpc";
 
 export const appRouter = router({
-  getTodos: publicProcedure.query(async () => {
-    return [10, 20, 30];
+  getWishItems: publicProcedure.query(async () => {
+    return prisma.wish.findMany();
   }),
 });
 

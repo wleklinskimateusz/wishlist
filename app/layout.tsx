@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import Provider from "./_trpc/Provider";
+import Providers from "./_components/Providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +17,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          <Provider>{children}</Provider>
+          <Providers>{children}</Providers>
         </body>
       </html>
     </ClerkProvider>
