@@ -1,25 +1,24 @@
-"use client";
 import { useQuery } from "@tanstack/react-query";
 
 import { getPrismaClient } from "../_prisma";
-import { useAuth } from "@clerk/nextjs";
+import { auth, useAuth } from "@clerk/nextjs";
+import { use } from "react";
+import { trpc } from "../_trpc/client";
+
+const prisma = getPrismaClient();
 
 export function WishItems() {
-  const { userId } = useAuth();
-  const prisma = getPrismaClient();
+  const { userId } = auth();
+  console.log("user", userId);
 
   const { data: wishItems } = useQuery(["wishItems"], () =>
-    prisma.wish.findMany({
-      where: {
-        userId: userId ?? undefined,
-      },
-    }),
+    trpc.getWishItems.useQuery(),
   );
   return (
     <>
       <h3>Wish Items</h3>
       <ul>
-        {wishItems?.map((item, idx) => <div key={idx}>{item.title}</div>)}
+        {wishItems?.data?.map((item, idx) => <div key={idx}>{item.title}</div>)}
       </ul>
     </>
   );
